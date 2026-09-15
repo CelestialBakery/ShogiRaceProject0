@@ -1,11 +1,11 @@
 public enum Enum_PieceType
 {
-    King,   // ‰¤«
-    Rook,   // ”òÔ
-    Bishop, // Šps
-    Gold,   // ‹à«
-    Silver, // ‹â«
-    Knight, // Œj”n
-    Lance,  // Ô
-    Pawn    // •à•º
+    King,   // ‰¤«(Ou)
+    Rook,   // ”òÔ(Hisha)
+    Bishop, // Šps(Kaku)
+    Gold,   // ‹à«(Kin)
+    Silver, // ‹â«(Gin)
+    Knight, // Œj”n(Kei)
+    Lance,  // Ô(Kyou)
+    Pawn    // •à•º(Hu)
 }

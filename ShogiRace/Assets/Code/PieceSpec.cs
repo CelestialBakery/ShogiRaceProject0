@@ -12,4 +12,5 @@ public struct PieceSpec
     public float TiltUpwardLimit;
     public float FlightSpeed;
     public float Weight;
+    public float AttackRange;
 }
