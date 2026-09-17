@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PieceAction : MonoBehaviour
 {
-    [SerializeField] private PieceController m_pieceController;
+    private PieceController m_pieceController;
     [SerializeField] private InputKey m_key;
 
     public bool isStopped;
@@ -13,6 +13,7 @@ public class PieceAction : MonoBehaviour
     private Collider m_col;
     private Rigidbody m_rb;
 
+    [Header("==== Current state ====")]
     [SerializeField] private float m_pushTime;   // Space key press duration
     [SerializeField] private float m_currentSpeed;
 
@@ -24,6 +25,8 @@ public class PieceAction : MonoBehaviour
 
     public void Initialize(PieceController pieceController, PieceSpec spec)
     {
+        m_pieceController = pieceController;
+        m_spec = spec;
         isStopped = true;
     }
 
@@ -44,14 +47,14 @@ public class PieceAction : MonoBehaviour
 
         if (m_currentSpeed < m_spec.TopSpeed)
         {
-            m_currentSpeed += m_spec.Acceleration;
+            m_currentSpeed += m_spec.Acceleration * Time.deltaTime;
             if (m_currentSpeed < m_spec.TopSpeed)
             {
                 m_currentSpeed = m_spec.TopSpeed;
             }
         }
 
-        AddForce(transform.forward * m_currentSpeed);
+        AddForce(transform.forward * m_currentSpeed * Time.deltaTime);
     }
 
     // Common operation

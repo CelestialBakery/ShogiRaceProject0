@@ -7,5 +7,6 @@ public enum Enum_PieceType
     Silver, // ‹â«(Gin)
     Knight, // Œj”n(Kei)
     Lance,  // Ô(Kyou)
-    Pawn    // •à•º(Hu)
+    Pawn,   // •à•º(Hu)
+    Max     // Piece Count
 }

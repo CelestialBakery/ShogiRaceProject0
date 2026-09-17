@@ -30,4 +30,12 @@ public class GameManager : MonoBehaviour
     {
         RacerList.Add(pieceRacer);
     }
+
+    public void StopAllPiece(bool isStop)
+    {
+        foreach (var racer in RacerList)
+        {
+            racer.Controller.Stop(racer.Action);
+        }
+    }
 }

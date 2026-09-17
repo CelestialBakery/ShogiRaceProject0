@@ -19,6 +19,7 @@ public class PieceController : MonoBehaviour
 
     private void Update()
     {
+        //Debug.Log("[PieceController]Update");
         m_pieceBehaviour.Execute();
     }
 
@@ -27,14 +28,10 @@ public class PieceController : MonoBehaviour
         pieceAction.isStopped = true;
     }
 
-    public void StopAllPiece(bool isStop)
-    {
-
-    }
 
     public interface IPieceBehaviour
     {
-        public void Initialized(PieceController pieceController);
+        public void Initialized(PieceController controller);
         public void Execute();
         public void Stop(PieceAction pieceAction);
     }
