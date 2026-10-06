@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 338701252e997d241b647d1fcf2073b5, type: 3}
+  m_Name: Spec_Rook
+  m_EditorClassIdentifier: Assembly-CSharp::PieceSpec
+  m_acceleration: 10
+  m_velocityConvergence: 10
+  m_topSpeed: 100
+  m_turning: 5
+  m_grip: 50
+  m_charge: 20
+  m_jumpPower: 0
+  m_liftPower: 100
+  m_tiltUpwardLimit: 20
+  m_takeoffAcceleration: 100
+  m_flightVelocityConvergence: 10
+  m_flightSpeed: 160
+  m_flightTurning: 5
+  m_weight: 100
+  m_attackRange: 1

@@ -8,5 +8,4 @@ public enum Enum_PieceType
     Knight, // åjîn(Kei)
     Lance,  // çÅé‘(Kyou)
     Pawn,   // ï‡ï∫(Hu)
-    Max     // Piece Count
 }
