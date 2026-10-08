@@ -18,6 +18,7 @@ MonoBehaviour:
   m_turning: 5
   m_grip: 50
   m_charge: 20
+  m_releaseAcceleration: 10
   m_jumpPower: 0
   m_liftPower: 100
   m_tiltUpwardLimit: 20

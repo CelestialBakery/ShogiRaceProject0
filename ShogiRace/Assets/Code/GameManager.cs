@@ -26,11 +26,13 @@ public class GameManager : MonoBehaviour
 
     [Header("==== Information ====")]
     [SerializeField] private float m_time;
-    [SerializeField] private int m_pieceCount;
+    [SerializeField] private int m_participants;
     [SerializeField] private List<PieceRacer> RacerList;
 
     [Header("Selected Piece")]
     public Enum_PieceType PieceType;
+
+    public int Participants => m_participants;
 
 
     private void RaceStart()

@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 
 public class Select_Piece : MonoBehaviour
 {
     [SerializeField] private GameManager m_gameManager;
+    [SerializeField] private RacerSaveManager m_racerSaveManager;
+
+    [Header("==== Participants settings ====")]
+    [SerializeField][Range(1, 8)] private int m_participants;
 
     [Header("==== Current state ====")]
     [SerializeField] private int m_currentPieceIndex;
@@ -62,6 +65,7 @@ public class Select_Piece : MonoBehaviour
     public void PressDecide()
     {
         m_gameManager.PieceType = (Enum_PieceType)Enum.ToObject(typeof(Enum_PieceType), m_currentPieceIndex);
+        m_racerSaveManager.SetRacer(0, m_gameManager.PieceType);
         //m_gameManager.AddRacer()
         SceneManager.LoadScene("TestScene");
     }
