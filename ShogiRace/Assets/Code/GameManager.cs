@@ -21,18 +21,21 @@ public class GameManager : MonoBehaviour
     }
 
     [Header("==== Parameter ====")]
-    [SerializeField] private float m_readyTime;   // The time from the start of the countdown to "GO"
+    [SerializeField] private float m_appearanceTime;
+    [SerializeField] private float m_getSetTime;   // The time from the start of the countdown to "GO"
     [SerializeField] private int m_maxParticipants;
 
     [Header("==== Information ====")]
-    [SerializeField] private float m_time;
     [SerializeField] private int m_participants;
-    [SerializeField] private List<PieceRacer> RacerList;
+    [SerializeField] private List<PieceRacer> m_racerList;
 
     [Header("Selected Piece")]
-    public Enum_PieceType PieceType;
+    public Enum_PieceType PlayersPieceType;
 
+    public float AppearanceTime => m_appearanceTime;
+    public float GetSetTime => m_getSetTime;
     public int Participants => m_participants;
+    public List<PieceRacer> RacerList => m_racerList;
 
 
     private void RaceStart()

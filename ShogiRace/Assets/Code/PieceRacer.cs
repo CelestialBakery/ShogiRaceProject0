@@ -25,4 +25,9 @@ public class PieceRacer : MonoBehaviour, IPieceBehaviour
     }
 
     public void Stop(PieceAction pieceAction) => m_controller.Stop(m_pieceAction);
+
+    public void SetPieceType(Enum_PieceType pieceType)
+    {
+        m_pieceType = pieceType;
+    }
 }

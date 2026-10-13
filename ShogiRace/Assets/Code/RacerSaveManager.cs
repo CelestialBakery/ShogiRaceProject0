@@ -21,10 +21,12 @@ public class RacerSaveManager : MonoBehaviour
 
     [SerializeField] private GameManager m_gameManager;
     //[SerializeField] private ObjectPoolManager m_poolManager;
-    [SerializeField] private List<GameObject> m_soullessObjes; // Enpty object
+    [SerializeField] private List<GameObject> m_racerObjes; // Enpty object
     [SerializeField] private List<GameObject> m_prefabs;
 
     private int m_participants = 0;
+
+    public List<GameObject> RacerObjes => m_racerObjes;
 
     private void Start()
     {
@@ -33,7 +35,8 @@ public class RacerSaveManager : MonoBehaviour
 
     public void SetRacer(int playerNum, Enum_PieceType pieceType)
     {
-        m_soullessObjes[playerNum] = m_prefabs[playerNum];
+        m_racerObjes[playerNum] = m_prefabs[(int)pieceType];
+        m_racerObjes[playerNum].GetComponent<PieceRacer>().SetPieceType(pieceType);
     }
 
     public void GameStart()
@@ -41,8 +44,8 @@ public class RacerSaveManager : MonoBehaviour
         m_participants = m_gameManager.Participants;
         for (int i = 0; i < m_participants; i++)
         {
-            m_gameManager.AddRacer(m_soullessObjes[i].GetComponent<PieceRacer>());
-            m_soullessObjes[i].SetActive(true);
+            m_gameManager.AddRacer(m_racerObjes[i].GetComponent<PieceRacer>());
+            m_racerObjes[i].SetActive(true);
             
         }
     }
