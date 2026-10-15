@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
 
     [Header("==== Information ====")]
     [SerializeField] private int m_participants;
-    [SerializeField] private List<PieceRacer> m_racerList;
+    [SerializeField] private List<RacerData> m_dataList;
 
     [Header("Selected Piece")]
     public Enum_PieceType PlayersPieceType;
@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     public float AppearanceTime => m_appearanceTime;
     public float GetSetTime => m_getSetTime;
     public int Participants => m_participants;
-    public List<PieceRacer> RacerList => m_racerList;
+    public List<RacerData> DataList => m_dataList;
 
 
     private void RaceStart()
@@ -48,16 +48,8 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void AddRacer(PieceRacer pieceRacer)
+    public void AddRacer(RacerData pieceRacer)
     {
-        RacerList.Add(pieceRacer);
-    }
-
-    public void StopAllPiece(bool isStop)
-    {
-        foreach (var racer in RacerList)
-        {
-            racer.Controller.Stop(racer.Action);
-        }
+        m_dataList.Add(pieceRacer);
     }
 }

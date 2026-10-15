@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Analytics.IAnalytic;
 
 public class RaceManager : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class RaceManager : MonoBehaviour
     [SerializeField] private RacerSaveManager m_racerSaveManager;
     [SerializeField] private List<Vector3> m_startPositions;
     [SerializeField] private List<Vector3> m_lotteryStartPositions;
+    [SerializeField] private List<GameObject> m_racerObjects;
 
     [Header("==== Information ====")]
     [SerializeField] private float m_appearanceTime;
@@ -22,11 +24,12 @@ public class RaceManager : MonoBehaviour
     private void Start()
     {
         Debug.Log("Ready");
-        for (int i = 0; i < m_racerSaveManager.RacerObjes.Count; i++)
+        for (int i = 0; i < m_racerSaveManager.Racers.Count; i++)
         {
-            if (m_racerSaveManager.RacerObjes[i] == null) break;
-            InstantiatePiece(m_racerSaveManager.RacerObjes[i]);
+            if (m_racerSaveManager.Racers[i] == null) break;
+            m_racerSaveManager.InstantiatePiece(m_gameManager.DataList[i]);
         }
+        m_racerSaveManager.InitializeStartPositions(ref m_startPositions);
     }
 
     private void Update()
@@ -34,18 +37,13 @@ public class RaceManager : MonoBehaviour
         
     }
 
-    private void InstantiatePiece(GameObject racer)
-    {
-        GameObject obj = Instantiate(racer);
-        //racer.SetActive(true);
-        obj.transform.position = GetRandomStartPosition();
-    }
 
-    private Vector3 GetRandomStartPosition()
+
+    public void StopAllPiece(bool isStop)
     {
-        int index = Random.Range(0, m_lotteryStartPositions.Count);
-        Vector3 position = m_lotteryStartPositions[index];
-        m_lotteryStartPositions.RemoveAt(index);
-        return position;
+        foreach (var racer in m_racerSaveManager.Racers)
+        {
+            racer.Controller.Stop(racer.Action);
+        }
     }
 }
