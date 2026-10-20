@@ -42,6 +42,11 @@ public class RacerSaveManager : MonoBehaviour
 
     public void SetRacer(int playerNum, Enum_PieceType pieceType)
     {
+        Debug.Log($"SetRacer");
+        for (int i = m_racers.Count; i <= playerNum; i++)
+        {
+            m_racers.Add(new PieceRacer());
+        }
         m_racers[playerNum] = m_prefabs[(int)pieceType].GetComponent<PieceRacer>();
         m_racers[playerNum].SetPieceType(pieceType);
     }

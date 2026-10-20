@@ -21,7 +21,7 @@ public class SelectionPhase : MonoBehaviour
     [SerializeField] private GameManager m_gameManager;
     [SerializeField] private RacerSaveManager m_racerSaveManager;
     [SerializeField] private List<GameObject> m_phaseScreens;
-    [SerializeField] private List<Sprite> m_PieceSprites;
+    [SerializeField] private List<Sprite> m_pieceSprites;
 
     [Header("==== Participants settings ====")]
     [SerializeField][Range(1, 8)] private int m_participants;
@@ -41,7 +41,13 @@ public class SelectionPhase : MonoBehaviour
 
     [Header("==== PieceConfirmation ====")]
     [SerializeField] private List<Image> m_currentPieces;
-    [SerializeField] private List<RectTransform> m_pCButtonList;
+    [SerializeField] private List<RectTransform> m_pCButtonList;    // Piece confirmation phase
+    [SerializeField] private List<RectTransform> m_cPUSButtonList;  // CPU settings phase
+    private int[][] m_cPUSButtonIndexes;
+    private int m_currentX;
+    private int m_currentY;
+    private int m_minCPUIndex = 2;
+    private int m_maxCPUIndex = 8;
 
     [Header("==== MapSelection ====")]
     [SerializeField] private List<RectTransform> m_mapList;
@@ -53,10 +59,13 @@ public class SelectionPhase : MonoBehaviour
         m_currentPieceIndex = 0;
         m_currentButtonIndex = 0;
         SetCursorPosition(m_mapList[0]);
+        SetPieceSprite(0, 0);   // (player0, King)
+        SetButtonArray();
     }
 
     private void Update()
     {
+
         switch (m_currentPhase)
         {
             case Phase.MapSelection:
@@ -98,31 +107,43 @@ public class SelectionPhase : MonoBehaviour
         m_cursor.position = rt[index].position + m_cursorOffset;
     }
 
+    private void CursorMoveV2(ref int index, int x, int y, List<RectTransform> rt)
+    {
+        ChangeCurrentButtonIndex(x, y);
+        m_cursor.position = rt[index].position + m_cursorOffset;
+    }
+
     public void PieceDecide(int racerID)
     {
         Enum_PieceType pieceType = (Enum_PieceType)Enum.ToObject(typeof(Enum_PieceType), m_currentPieceIndex);
+        for (int i = m_gameManager.DataList.Count; i <= racerID; i++)
+        {
+            Debug.Log($"Add.RacerData, count: {m_gameManager.DataList.Count}");
+            m_gameManager.AddRacer(new RacerData());
+        }
         m_gameManager.DataList[racerID].SetPieceType(pieceType);
         m_racerSaveManager.SetRacer(racerID, pieceType);
-        m_currentPieces[racerID].sprite = m_PieceSprites[m_currentPieceIndex];
+        SetPieceSprite(racerID, m_currentPieceIndex);
 
         switch (m_currentPhase)
         {
             case Phase.MyPieceSelection:
                 {
-                    m_currentPhase = Phase.MyPieceConfirmation;
+                    SetPhase(Phase.MyPieceConfirmation);
+                    SetCursorPosition(m_pCButtonList[0]);
                 }
                 break;
 
             case Phase.CPUPieceSettings:
                 {
-                    m_currentPhase = Phase.CPUSettings;
+                    SetPhase(Phase.CPUSettings);
                 }
                 break;
 
             default:
                 {
                     Debug.LogError($"Unforeseen phase. Current phase: {m_currentPhase}");
-                    m_currentPhase = Phase.MapSelection;
+                    SetPhase(Phase.MapSelection);
                 }
                 break;
         }
@@ -211,10 +232,112 @@ public class SelectionPhase : MonoBehaviour
         }
     }
 
+    private void CPUSettingScreen()
+    {
+        if (Keyboard.current.wKey.wasPressedThisFrame)
+        {
+            Debug.Log($"[CPUSS]W！");
+            CursorMoveV2(ref m_currentButtonIndex, 0, -1, m_cPUSButtonList);
+        }
+        if (Keyboard.current.sKey.wasPressedThisFrame)
+        {
+            Debug.Log($"[CPUSS]S！");
+            CursorMoveV2(ref m_currentButtonIndex, 0, 1, m_cPUSButtonList);
+        }
+        if (Keyboard.current.aKey.wasPressedThisFrame)
+        {
+            Debug.Log($"[CPUSS]A！");
+            CursorMoveV2(ref m_currentButtonIndex, -1, 0, m_cPUSButtonList);
+        }
+        if (Keyboard.current.dKey.wasPressedThisFrame)
+        {
+            Debug.Log($"[CPUSS]D！");
+            CursorMoveV2(ref m_currentButtonIndex, 1, 0, m_cPUSButtonList);
+        }
+
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            Debug.Log("[CPUSS]Space!");
+            switch (m_currentButtonIndex)
+            {
+                case 0: // left arrow
+                    {
+                        ChangeParticipants(-1);
+                    }
+                    break;
+
+                case 1: // right arrow
+                    {
+                        ChangeParticipants(1);
+                    }
+                    break;
+
+                case 2: // CPU1
+                    {
+                        SetPhase(Phase.CPUPieceSettings);
+                    }
+                    break;
+            }
+        }
+    }
+
     private void SetPhase(Phase setPhase)
     {
         m_phaseScreens[(int)m_currentPhase].SetActive(false);
         m_currentPhase = setPhase;
         m_phaseScreens[(int)m_currentPhase].SetActive(true);
+    }
+
+    private void SetPieceSprite(int racerID, int index)
+    {
+        m_currentPieces[racerID].sprite = m_pieceSprites[index];
+    }
+
+
+    private void SetButtonArray()
+    {
+        int[] array1 = { 0, 1, 2, 3, 4 };
+        int[] array2 = { 0, 1, 5, 6, 7 };
+        int[] array3 = { 0, 1, 8, 9, 9 };
+
+        m_cPUSButtonIndexes = new int[3][]
+            {
+                array1,
+                array2,
+                array3
+            };
+    }
+
+    private void ChangeCurrentButtonIndex(int x, int y)
+    {
+        m_currentX += x;
+        m_currentY += y;
+        int xLength = m_cPUSButtonIndexes.Length;
+        int yLength = m_cPUSButtonIndexes[0].Length;
+
+        if (m_currentX < 0) m_currentX = 0;
+        if (m_currentY < 0) m_currentY = 0;
+        if (m_currentX >= xLength) m_currentX = xLength - 1;
+        if (m_currentY >= yLength) m_currentY = yLength - 1;
+
+        m_currentButtonIndex = m_cPUSButtonIndexes[m_currentX][m_currentY];
+    }
+
+    private void ChangeParticipants(int addend)
+    {
+        m_participants += addend;
+
+        for (int i = m_minCPUIndex; i < m_maxCPUIndex; i++)
+        {
+            if (i < m_participants + m_minCPUIndex)
+            {
+                m_cPUSButtonList[i].GetComponent<GameObject>().SetActive(true);
+            }
+            else if (i >= m_participants + m_minCPUIndex)
+            {
+                m_cPUSButtonList[i].GetComponent<GameObject>().SetActive(false);
+            }
+        }
+        //m_cPUSButtonList
     }
 }

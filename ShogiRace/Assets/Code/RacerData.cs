@@ -3,9 +3,9 @@ using UnityEngine;
 [System.Serializable]
 public class RacerData
 {
-    private Enum_PieceType m_pieceType;
-    private int m_point;
-    private float m_time;
+    [SerializeField] private Enum_PieceType m_pieceType;
+    [SerializeField] private int m_point;
+    [SerializeField] private float m_time;
 
     public Enum_PieceType PieceType => m_pieceType;
     public int Point => m_point;
