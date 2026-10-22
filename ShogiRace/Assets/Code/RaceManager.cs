@@ -7,7 +7,7 @@ public class RaceManager : MonoBehaviour
     [SerializeField] private GameManager m_gameManager;
     [SerializeField] private RacerSaveManager m_racerSaveManager;
     [SerializeField] private List<Vector3> m_startPositions;
-    [SerializeField] private List<Vector3> m_lotteryStartPositions;
+    //[SerializeField] private List<Vector3> m_lotteryStartPositions;
     [SerializeField] private List<GameObject> m_racerObjects;
 
     [Header("==== Information ====")]
@@ -18,15 +18,15 @@ public class RaceManager : MonoBehaviour
     private void Awake()
     {
         Application.targetFrameRate = 60;
-        m_lotteryStartPositions = m_startPositions;
+        //m_lotteryStartPositions = m_startPositions;
     }
 
     private void Start()
     {
         Debug.Log("Ready");
-        for (int i = 0; i < m_racerSaveManager.Racers.Count; i++)
+        for (int i = 0; i < m_gameManager.DataList.Count; i++)
         {
-            if (m_racerSaveManager.Racers[i] == null) break;
+            if (m_gameManager.DataList[i] == null) break;
             m_racerSaveManager.InstantiatePiece(m_gameManager.DataList[i]);
         }
         m_racerSaveManager.InitializeStartPositions(ref m_startPositions);
@@ -39,11 +39,11 @@ public class RaceManager : MonoBehaviour
 
 
 
-    public void StopAllPiece(bool isStop)
-    {
-        foreach (var racer in m_racerSaveManager.Racers)
-        {
-            racer.Controller.Stop(racer.Action);
-        }
-    }
+    //public void StopAllPiece(bool isStop)
+    //{
+    //    foreach (var racer in m_racerSaveManager.Racers)
+    //    {
+    //        racer.Controller.Stop(racer.Action);
+    //    }
+    //}
 }

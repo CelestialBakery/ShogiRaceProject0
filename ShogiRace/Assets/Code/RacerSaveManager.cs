@@ -22,7 +22,7 @@ public class RacerSaveManager : MonoBehaviour
 
     [SerializeField] private GameManager m_gameManager;
     //[SerializeField] private ObjectPoolManager m_poolManager;
-    [SerializeField] private List<PieceRacer> m_racers; // Enpty object
+    //[SerializeField] private List<PieceRacer> m_racers; // Enpty object
     [SerializeField] private List<GameObject> m_prefabs;
 
     [Header("==== BaseStartPosition ====")]
@@ -32,7 +32,7 @@ public class RacerSaveManager : MonoBehaviour
 
     private int m_participants = 1;
 
-    public List<PieceRacer> Racers => m_racers;
+    //public List<PieceRacer> Racers => m_racers;
     public Vector3 BaseStartPosition => m_baseStartPosition;
 
     private void Start()
@@ -40,16 +40,16 @@ public class RacerSaveManager : MonoBehaviour
         
     }
 
-    public void SetRacer(int playerNum, Enum_PieceType pieceType)
-    {
-        Debug.Log($"SetRacer");
-        for (int i = m_racers.Count; i <= playerNum; i++)
-        {
-            m_racers.Add(new PieceRacer());
-        }
-        m_racers[playerNum] = m_prefabs[(int)pieceType].GetComponent<PieceRacer>();
-        m_racers[playerNum].SetPieceType(pieceType);
-    }
+    //public void SetRacer(int playerNum, Enum_PieceType pieceType)
+    //{
+    //    Debug.Log($"SetRacer");
+    //    for (int i = m_racers.Count; i <= playerNum; i++)
+    //    {
+    //        m_racers.Add(new PieceRacer());
+    //    }
+    //    m_racers[playerNum] = m_prefabs[(int)pieceType].GetComponent<PieceRacer>();
+    //    m_racers[playerNum].SetPieceType(pieceType);
+    //}
 
     //public void GameStart()
     //{

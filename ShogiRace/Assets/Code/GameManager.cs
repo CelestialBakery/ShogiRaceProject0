@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
 
         Debug.LogWarning($"[GM]DontDestroyOnLoad");
         Application.targetFrameRate = 60;
+        Initialize();
     }
 
     [Header("==== Parameter ====")]
@@ -34,6 +36,7 @@ public class GameManager : MonoBehaviour
 
     public float AppearanceTime => m_appearanceTime;
     public float GetSetTime => m_getSetTime;
+    public int MaxParticipants => m_maxParticipants;
     public int Participants => m_participants;
     public List<RacerData> DataList => m_dataList;
 
@@ -48,8 +51,45 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void AddRacer(RacerData pieceRacer)
+    private void Initialize()
     {
-        m_dataList.Add(pieceRacer);
+        AddRacer(new RacerData());
+        for (int i = 0; i < m_dataList.Count; i++)
+        {
+            SetData(i, Enum_PieceType.King);
+        }
+    }
+
+    public void AddRacer(RacerData data)
+    {
+       
+        m_dataList.Add(data);
+    }
+
+    public void RemoveRacer(RacerData data)
+    {
+        m_dataList.Remove(data);
+    }
+
+    public void RemoveRacerAtLast()
+    {
+        if (m_dataList.Count <= 0)
+        {
+            Debug.LogError("m_dataList.Count was empty");
+            return;
+        }
+        m_dataList.Remove(m_dataList[m_dataList.Count - 1]);
+    }
+
+    public void SetData(int playerNum, Enum_PieceType pieceType)
+    {
+        Debug.Log("SetData");
+        m_dataList[playerNum].SetPieceType(pieceType);
+    }
+
+    //prov
+    public void LoadRaceScene()
+    {
+        SceneManager.LoadScene("TestField");
     }
 }
