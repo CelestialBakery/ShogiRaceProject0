@@ -53,14 +53,17 @@ public class GameManager : MonoBehaviour
 
     private void Initialize()
     {
-        AddRacer(new RacerData());
+        if (m_dataList != null) return;
+        
+        AddRacerData(new RacerData());
+        
         for (int i = 0; i < m_dataList.Count; i++)
         {
             SetData(i, Enum_PieceType.King);
         }
     }
 
-    public void AddRacer(RacerData data)
+    public void AddRacerData(RacerData data)
     {
        
         m_dataList.Add(data);

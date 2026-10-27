@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b352bc320126818429d4264d50f62987, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  m_readyTime: 2
+  m_appearanceTime: 0
+  m_getSetTime: 0
   m_maxParticipants: 8
-  m_time: 0
   m_participants: 0
-  RacerList: []
-  PieceType: 0
+  m_dataList: []
+  PlayersPieceType: 0

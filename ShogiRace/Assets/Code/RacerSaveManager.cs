@@ -29,8 +29,10 @@ public class RacerSaveManager : MonoBehaviour
     [SerializeField] private Vector3 m_baseStartPosition;
     [SerializeField] private List<Vector3> m_startPositionOffsets;
     [SerializeField] private List<Vector3> m_lotteryOffsets;
+    //[SerializeField] private List<Vector3> m_startPositions;
+    [SerializeField] private List<PieceRacer> m_pieceRacers;
 
-    private int m_participants = 1;
+    [SerializeField] private int m_participants;
 
     //public List<PieceRacer> Racers => m_racers;
     public Vector3 BaseStartPosition => m_baseStartPosition;
@@ -45,7 +47,7 @@ public class RacerSaveManager : MonoBehaviour
     //    Debug.Log($"SetRacer");
     //    for (int i = m_racers.Count; i <= playerNum; i++)
     //    {
-    //        m_racers.Add(new PieceRacer());
+            //m_racers.Add(new PieceRacer());
     //    }
     //    m_racers[playerNum] = m_prefabs[(int)pieceType].GetComponent<PieceRacer>();
     //    m_racers[playerNum].SetPieceType(pieceType);
@@ -65,6 +67,7 @@ public class RacerSaveManager : MonoBehaviour
     public void InstantiatePiece(RacerData data)
     {
         GameObject obj = Instantiate(m_prefabs[(int)data.PieceType]);
+        m_pieceRacers.Add(obj.GetComponent<PieceRacer>());
         //racer.SetActive(true);
     }
 
@@ -76,17 +79,45 @@ public class RacerSaveManager : MonoBehaviour
         return position;
     }
 
-    public void InitializeStartPositions(ref List<Vector3> positions)
+    public void InitializeStartPositions()
     {
+        //Debug.Log($"[ISP]ref positions.Count: {positions.Count}");
         m_lotteryOffsets = new();
         for (int i = 0; i < m_participants; i++)
         {
             m_lotteryOffsets.Add(m_startPositionOffsets[i]);
         }
+        //Debug.Log($"[ISP]lotteryOffsets.Count: {m_lotteryOffsets.Count}");
 
-        for (int i = 0; i < positions.Count; i++)
+        for (int i = 0; i < m_participants; i++)
         {
-            positions[i] = GetRandomStartPosition();
+            m_pieceRacers[i].GetComponentInParent<Transform>().position = GetRandomStartPosition();
         }
     }
+
+    public void SetParticipants(int participants)
+    {
+        //Debug.Log($"SetParticipants: {participants}");
+        m_participants = participants;
+    }
+
+    //public void AddRacer(Transform transform)
+    //{
+    //    m_pieces.Add(transform);
+    //}
+
+    public void ClearPieceObjects()
+    {
+        m_pieceRacers.Clear();
+    }
+
+    public void RaceStart()
+    {
+        Debug.Log("[RaceStart]");
+        for (int i = 0; i < m_participants;i++)
+        {
+            m_pieceRacers[i].Resume(m_pieceRacers[i].Action);
+        }
+    }
+
 }

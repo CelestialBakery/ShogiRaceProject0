@@ -1,14 +1,15 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static UnityEngine.Analytics.IAnalytic;
 
 public class RaceManager : MonoBehaviour
 {
     [SerializeField] private GameManager m_gameManager;
     [SerializeField] private RacerSaveManager m_racerSaveManager;
-    [SerializeField] private List<Vector3> m_startPositions;
     //[SerializeField] private List<Vector3> m_lotteryStartPositions;
-    [SerializeField] private List<GameObject> m_racerObjects;
+    [SerializeField] private List<Transform> m_racerObjects;
 
     [Header("==== Information ====")]
     [SerializeField] private float m_appearanceTime;
@@ -19,17 +20,24 @@ public class RaceManager : MonoBehaviour
     {
         Application.targetFrameRate = 60;
         //m_lotteryStartPositions = m_startPositions;
+
+        m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        m_racerSaveManager = GameObject.Find("RacerSaveManager").GetComponent<RacerSaveManager>();
     }
 
     private void Start()
     {
         Debug.Log("Ready");
+        Debug.Log($"DataList.Count: {m_gameManager.DataList.Count}");
         for (int i = 0; i < m_gameManager.DataList.Count; i++)
         {
             if (m_gameManager.DataList[i] == null) break;
             m_racerSaveManager.InstantiatePiece(m_gameManager.DataList[i]);
         }
-        m_racerSaveManager.InitializeStartPositions(ref m_startPositions);
+        m_racerSaveManager.InitializeStartPositions();
+        //m_racerSaveManager.SetStartPosition();
+
+        m_racerSaveManager.RaceStart();
     }
 
     private void Update()
@@ -37,7 +45,7 @@ public class RaceManager : MonoBehaviour
         
     }
 
-
+    
 
     //public void StopAllPiece(bool isStop)
     //{
@@ -46,4 +54,6 @@ public class RaceManager : MonoBehaviour
     //        racer.Controller.Stop(racer.Action);
     //    }
     //}
+
+    
 }

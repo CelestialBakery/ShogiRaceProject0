@@ -3150,7 +3150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Select_Piece
   m_gameManager: {fileID: 438311299}
-  m_racerSaveManager: {fileID: 2063667680}
+  m_racerSaveManager: {fileID: 1611659488}
   m_phaseScreens:
   - {fileID: 915000515}
   - {fileID: 18734261}
@@ -3219,6 +3219,17 @@ Transform:
   - {fileID: 667986373}
   m_Father: {fileID: 373178766}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1611659488 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 656949682875935266, guid: 7b8db56227a16fe449504278ee5b51d9, type: 3}
+  m_PrefabInstance: {fileID: 8379522750727019703}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35f7e246b83329e48bb704ab755f2d20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RacerSaveManager
 --- !u!1 &1714381450
 GameObject:
   m_ObjectHideFlags: 0
@@ -3823,17 +3834,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2051150188}
   m_CullTransparentMesh: 1
---- !u!114 &2063667680 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 656949682875935266, guid: 7b8db56227a16fe449504278ee5b51d9, type: 3}
-  m_PrefabInstance: {fileID: 8379522750727019703}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35f7e246b83329e48bb704ab755f2d20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RacerSaveManager
 --- !u!1001 &2715998483839835336
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3886,10 +3886,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
-    - target: {fileID: 4096384959609485512, guid: ad93ab41d026e7e4fbaef4b937216479, type: 3}
-      propertyPath: m_racerList.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3907,6 +3903,34 @@ PrefabInstance:
       propertyPath: m_gameManager
       value: 
       objectReference: {fileID: 438311299}
+    - target: {fileID: 656949682875935266, guid: 7b8db56227a16fe449504278ee5b51d9, type: 3}
+      propertyPath: m_startPositionOffsets.Array.data[1].x
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 656949682875935266, guid: 7b8db56227a16fe449504278ee5b51d9, type: 3}
+      propertyPath: m_startPositionOffsets.Array.data[2].x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 656949682875935266, guid: 7b8db56227a16fe449504278ee5b51d9, type: 3}
+      propertyPath: m_startPositionOffsets.Array.data[3].x
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 656949682875935266, guid: 7b8db56227a16fe449504278ee5b51d9, type: 3}
+      propertyPath: m_startPositionOffsets.Array.data[4].x
+      value: -4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 656949682875935266, guid: 7b8db56227a16fe449504278ee5b51d9, type: 3}
+      propertyPath: m_startPositionOffsets.Array.data[5].x
+      value: -1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 656949682875935266, guid: 7b8db56227a16fe449504278ee5b51d9, type: 3}
+      propertyPath: m_startPositionOffsets.Array.data[6].x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 656949682875935266, guid: 7b8db56227a16fe449504278ee5b51d9, type: 3}
+      propertyPath: m_startPositionOffsets.Array.data[7].x
+      value: 4.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4557763901068676005, guid: 7b8db56227a16fe449504278ee5b51d9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

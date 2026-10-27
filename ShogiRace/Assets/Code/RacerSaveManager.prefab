@@ -44,16 +44,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35f7e246b83329e48bb704ab755f2d20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RacerSaveManager
-  m_gameManager: {fileID: 4096384959609485512, guid: ad93ab41d026e7e4fbaef4b937216479, type: 3}
-  m_soullessObjes:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  m_gameManager: {fileID: 0}
   m_prefabs:
   - {fileID: 1125020188357006733, guid: f059384fd1ea3914591adbbca826fc72, type: 3}
   - {fileID: 5379197579296806434, guid: 93bf6ccffd5d8774f8d4604703d66b6d, type: 3}
+  m_baseStartPosition: {x: 0, y: 0, z: 0}
+  m_startPositionOffsets:
+  - {x: 0, y: 0, z: 0}
+  - {x: -2, y: 0, z: 0}
+  - {x: 2, y: 0, z: 0}
+  - {x: -4, y: 0, z: 0}
+  - {x: -3, y: 0, z: 3}
+  - {x: -1, y: 0, z: 3}
+  - {x: 1, y: 0, z: 3}
+  - {x: 3, y: 0, z: 3}
+  m_lotteryOffsets: []
+  m_participants: 1

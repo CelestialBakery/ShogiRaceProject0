@@ -9,6 +9,7 @@ public class PieceRacer : MonoBehaviour, IPieceBehaviour
     [Header("==== PieceSpec ====")]
     [SerializeField] private PieceSpec m_spec;
 
+
     public PieceController Controller => m_controller;
     public Enum_PieceType PieceType => m_pieceType;
     public PieceAction Action => m_pieceAction;
@@ -21,10 +22,14 @@ public class PieceRacer : MonoBehaviour, IPieceBehaviour
 
     public void Execute()
     {
-        m_pieceAction.MoveForward();
+        m_pieceAction.AddMoveForward();
+
+        m_pieceAction.SumVelocity();
     }
 
     public void Stop(PieceAction pieceAction) => m_controller.Stop(m_pieceAction);
+
+    public void Resume(PieceAction pieceAction) => m_controller.Resume(m_pieceAction);
 
     public void SetPieceType(Enum_PieceType pieceType)
     {

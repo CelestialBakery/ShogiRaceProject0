@@ -12,15 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 338701252e997d241b647d1fcf2073b5, type: 3}
   m_Name: Spec_King
   m_EditorClassIdentifier: Assembly-CSharp::PieceSpec
-  m_acceleration: 0
-  m_velocityConvergence: 0
-  m_topSpeed: 0
-  m_turning: 0
-  m_grip: 0
-  m_charge: 0
+  m_acceleration: 30
+  m_velocityConvergence: 30
+  m_topSpeed: 50
+  m_turning: 20
+  m_grip: 50
+  m_charge: 20
+  m_releaseAcceleration: 60
   m_jumpPower: 0
-  m_liftPower: 0
-  m_tiltUpwardLimit: 0
-  m_flightSpeed: 0
-  m_weight: 0
-  m_attackRange: 0
+  m_liftPower: 5
+  m_tiltUpwardLimit: 5
+  m_takeoffAcceleration: 30
+  m_flightVelocityConvergence: 10
+  m_flightSpeed: 50
+  m_flightTurning: 10
+  m_weight: 50
+  m_attackRange: 1

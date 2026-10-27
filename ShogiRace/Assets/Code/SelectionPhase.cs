@@ -102,6 +102,7 @@ public class SelectionPhase : MonoBehaviour
         SetPieceSprite(0, 0);   // (player0, King)
         SetButtonArray();
         m_participantsText.text = m_participants.ToString();
+        m_racerSaveManager.SetParticipants(m_participants);
     }
 
     private void CursorMove(ref int index, int direction, int arrayLength, List<RectTransform> rt)
@@ -303,6 +304,7 @@ public class SelectionPhase : MonoBehaviour
 
                 default: // CPU
                     {
+                        if (m_currentCSButtonIndex > m_participants + m_minCPUIndex - 2) return;
                         SetPhase(Phase.CPUPieceSelection);
                         m_currentPieceIndex = (int)m_gameManager.DataList[m_currentCSButtonIndex - m_minCPUIndex + 1].PieceType;
                         SetCursorPosition(m_pieceList[m_currentPieceIndex]);
@@ -391,9 +393,10 @@ public class SelectionPhase : MonoBehaviour
             return;
         }
 
+        m_racerSaveManager.SetParticipants(m_participants);
         if (addend > 0)
         {
-            m_gameManager.AddRacer(new RacerData());
+            m_gameManager.AddRacerData(new RacerData());
             m_gameManager.SetData(m_gameManager.DataList.Count - 1, Enum_PieceType.King);
         }
         else

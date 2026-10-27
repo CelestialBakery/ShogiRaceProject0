@@ -28,11 +28,17 @@ public class PieceController : MonoBehaviour
         pieceAction.isStopped = true;
     }
 
+    public void Resume(PieceAction pieceAction)
+    {
+        pieceAction.isStopped = false;
+    }
+
 
     public interface IPieceBehaviour
     {
         public void Initialized(PieceController controller);
         public void Execute();
         public void Stop(PieceAction pieceAction);
+        public void Resume(PieceAction pieceAction);
     }
 }
