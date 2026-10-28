@@ -25,10 +25,21 @@ public class PlayerController : MonoBehaviour
         m_gameInputs.Enable();
     }
 
+    private void Start()
+    {
+        Invoke(nameof(SetPieceAction), 0.016f);   
+    }
+
+    private void SetPieceAction()
+    {
+        m_pieceAction = GameObject.Find("PieceRacer0")?.GetComponent<PieceAction>();
+    }
+
     private void OnDestroy()
     {
         m_gameInputs?.Dispose();
     }
+
 
     private void OnMove(InputAction.CallbackContext context)
     {
@@ -43,6 +54,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (m_pieceAction == null) return;
         m_pieceAction.SendInputVector(m_inputVector);
+        m_pieceAction.Turning();
     }
 }

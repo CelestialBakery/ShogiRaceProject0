@@ -36,6 +36,7 @@ public class RacerSaveManager : MonoBehaviour
 
     //public List<PieceRacer> Racers => m_racers;
     public Vector3 BaseStartPosition => m_baseStartPosition;
+    public List<PieceRacer> PieceRacers => m_pieceRacers;
 
     private void Start()
     {
@@ -68,6 +69,7 @@ public class RacerSaveManager : MonoBehaviour
     {
         GameObject obj = Instantiate(m_prefabs[(int)data.PieceType]);
         m_pieceRacers.Add(obj.GetComponent<PieceRacer>());
+        obj.name = "PieceRacer" + (m_pieceRacers.Count - 1).ToString();
         //racer.SetActive(true);
     }
 

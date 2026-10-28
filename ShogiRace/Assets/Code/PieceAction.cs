@@ -14,13 +14,19 @@ public class PieceAction : MonoBehaviour
 
     [Header("==== Current state ====")]
     [SerializeField] private bool m_isPushed;
+    //[SerializeField] private bool m_canTakeoff;
     [SerializeField] private float m_pushTime;   // Space key press duration
     [SerializeField] private float m_currentSpeed;
+    [SerializeField] private float m_currentGroundGradient;
+    [SerializeField] private float m_ownInclination;
+    [SerializeField] private bool m_isGround;
     private Vector2 m_inputVector;
+    [SerializeField]private float m_fallingVectorLimit;
 
     [Header("==== Velocity ====")]
     [SerializeField] private Vector3 m_velocity;
     [SerializeField] private Vector3 m_moveForwardVector;
+    [SerializeField] private Vector3 m_fallingVector;
 
     private void Awake()
     {
@@ -32,6 +38,7 @@ public class PieceAction : MonoBehaviour
         m_pieceController = pieceController;
         m_spec = spec;
         isStopped = true;
+        m_fallingVectorLimit = m_pieceController.Gravity * (m_spec.Weight * 0.1f);
     }
 
     public void SetPosition(Vector3 pos)
@@ -54,11 +61,11 @@ public class PieceAction : MonoBehaviour
 
     public void SumVelocity()
     {
-        m_velocity = m_moveForwardVector;
+        m_velocity = m_moveForwardVector + m_fallingVector;
         SetVelocity(m_velocity);
     }
 
-    public void AddMoveForward()
+    private void AddMoveForward()
     {
         if (isStopped) return;
 
@@ -71,7 +78,13 @@ public class PieceAction : MonoBehaviour
             }
         }
 
-        m_moveForwardVector = (-transform.forward * m_currentSpeed * Time.deltaTime);
+        m_moveForwardVector = (transform.forward * m_currentSpeed * Time.deltaTime);
+    }
+
+    public void UseVelocity()
+    {
+        AddMoveForward();
+        AddGravity();
     }
 
     // Common operation
@@ -96,10 +109,73 @@ public class PieceAction : MonoBehaviour
         m_inputVector = inputVector;
     }
 
-
-    private void OnCollisionEnter(Collision collision)
+    public void Turning()
     {
-        Vector3 closestPoint = m_col.ClosestPoint(transform.position);
-        Debug.Log($"[OCE] closestPoint: {closestPoint}");
+        float value = m_inputVector.x * m_spec.Turning * Time.deltaTime;
+        transform.rotation *= Quaternion.Euler(0, value, 0);
+        //Debug.Log($"Turning], value: {value}");
     }
+
+    private void RestoreTilt()
+    {
+
+    }
+
+    private void AddGravity()
+    {
+        if (m_isGround)
+        {
+            m_fallingVector = Vector3.zero;
+            return;
+        }
+
+        if (m_fallingVector.y <= -m_fallingVectorLimit)
+        {
+            m_fallingVector.y = -m_fallingVectorLimit;
+            return;
+        }
+        m_fallingVector += new Vector3(0, -m_pieceController.Gravity * (1 + m_spec.Weight * 0.01f) * Time.deltaTime, 0);
+    }
+
+    private void CalculateGradient()
+    {
+
+    }
+
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    Vector3 closestPoint = m_col.ClosestPoint(transform.position);
+    //    Debug.Log($"[OCEnter] closestPoint: {closestPoint}");
+    //    if (closestPoint.y <= transform.position.y)
+    //    {
+    //        m_isGround = true;
+    //    }
+    //    //if (collision.gameObject.tag == "Ground")
+    //    //{
+    //    //    m_isGround = true;
+    //    //}
+    //}
+
+    private void OnCollisionExit(Collision collision)
+    {
+        //Vector3 closestPoint = m_col.ClosestPoint(transform.position);
+        //Debug.Log($"[OCExit] closestPoint: {closestPoint}");
+        //if (closestPoint.y <= transform.position.y)
+        //{
+        //    m_isGround = false;
+        //}
+        if (collision.gameObject.tag == "Ground")
+        {
+            m_isGround = false;
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            m_isGround = true;
+        }
+    }
+
 }

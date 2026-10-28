@@ -22,7 +22,7 @@ public class PieceRacer : MonoBehaviour, IPieceBehaviour
 
     public void Execute()
     {
-        m_pieceAction.AddMoveForward();
+        m_pieceAction.UseVelocity();
 
         m_pieceAction.SumVelocity();
     }
